@@ -1,0 +1,14 @@
+parameters:
+    router.request_context.host: "example.com"
+
+services:
+    tonkovid_tests_test_for_oro.default_strategy:
+        class: Tonkovid\Tests\TestForOROBundle\Routing\Generator\Processing\LocaleAs1stLvlDomain
+        arguments: [%kernel.default_locale%]
+
+    tonkovid_tests_test_for_oro.localization_manager:
+        class: Tonkovid\Tests\TestForOROBundle\LocalizationManager
+        arguments: [@tonkovid_tests_test_for_oro.default_strategy]
+        calls:
+            - [ setRouter, [@router]]
+            - [ setTranslator, [@translator.default]]
